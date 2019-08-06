@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float speed = 0.08f;
     public Transform home;
 
+    private AudioSource soundGhost;
     private int myIndexPoint = 0;
     private SpriteRenderer sprite;
     private Color originalColor;
@@ -25,6 +26,7 @@ public class Enemy : MonoBehaviour
     {
         currentRoute = firstRoute;
         sprite = GetComponent<SpriteRenderer>();
+        soundGhost = GetComponent<AudioSource>();
         originalColor = sprite.color;
         enemyState = State.HUNT;
     }
@@ -108,6 +110,7 @@ public class Enemy : MonoBehaviour
             if (enemyState == State.SCARED)
             {
                 GameManager.instance.SetScore(1000);
+                soundGhost.Play();
                 SetDead();
             } else
             {
