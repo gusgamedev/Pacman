@@ -17,6 +17,6 @@ public class GameOver : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
-            GameManager.instance.Restart();
+            GameManager.instance.StartGame();
     }
 }

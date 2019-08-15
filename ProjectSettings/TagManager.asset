@@ -9,6 +9,9 @@ TagManager:
   - Points
   - Ghost
   - PowerUp
+  - Cherry
+  - PlayerStartPosition
+  - EnemyStartPosition
   layers:
   - Default
   - TransparentFX

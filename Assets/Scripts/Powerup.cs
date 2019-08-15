@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
+    public int scorePowerup = 300;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -15,7 +17,7 @@ public class Powerup : MonoBehaviour
                 ghost.GetComponent<Enemy>().SetScared();
             }
 
-            GameManager.instance.SetScore(300);
+            GameManager.instance.SetScore(scorePowerup);
             GameManager.instance.DecreasePills();
             Destroy(gameObject);
 

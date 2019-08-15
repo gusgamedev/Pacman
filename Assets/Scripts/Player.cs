@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Properties")]
     public float speed = 5f;
     public LayerMask wallLayer;
+    public AudioSource audioSource;
+    public AudioClip chompFx;
+    public AudioClip deathFx;
+
     Vector2 movement = Vector2.zero;
     Rigidbody2D rb2D;
+
+    [Header("Colectables")]
+    public int scorePills = 100;
+    public int scoreCherry = 500;
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        SetSound(chompFx);
     }
 
     void FixedUpdate()
@@ -57,18 +67,34 @@ public class Player : MonoBehaviour
     {
         //faz a deteccao da colisao com a parede na direcao que o jogador fizer o movimento
         RaycastHit2D hit = Physics2D.Linecast((Vector2)transform.position, (Vector2)transform.position + direction, wallLayer);
-        //caso ele nao encotre a colisaão com a parede o retrono sera TRUE permitindo a troca do movimento.
+        //caso ele nao encotre a colisao com a parede o retrono sera TRUE permitindo a troca do movimento.
         return (hit.collider == null);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //coleta as pills
         if (collision.CompareTag("Points"))
         {
-            GameManager.instance.SetScore(100);
+            GameManager.instance.SetScore(scorePills);
             GameManager.instance.DecreasePills();
             Destroy(collision.gameObject);
         }
+
+        //coleta as cerejas
+        if (collision.CompareTag("Cherry"))
+        {
+            GameManager.instance.SetScore(scoreCherry);
+            GameManager.instance.cherries++;
+            Destroy(collision.gameObject);
+        }
+    }
+
+    public void SetSound(AudioClip soundFx)
+    {
+        audioSource.clip = soundFx;
+        audioSource.Play();
+
     }
 }
 
