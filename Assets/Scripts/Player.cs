@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         rb2D.velocity = movement * speed;
     }
 
-    void SetMovement(Vector2 pMovement)
+    public void SetMovement(Vector2 pMovement)
     {
         //so permite que o pacman troque de movimento se o lado escolhido não colidir com uma parede
         if (CanMove(pMovement))
@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
         audioSource.Play();
 
     }
+
 }
 
 

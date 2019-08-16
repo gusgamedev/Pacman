@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
     {
         //obtem informacao do objeto jogador
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        
+
         //toca a musica de morte do player
         player.GetComponent<Player>().SetSound(player.GetComponent<Player>().deathFx);
 
@@ -168,8 +168,9 @@ public class Enemy : MonoBehaviour
         //reseta o jogador na fase
         Transform playerStartPos = GameObject.FindGameObjectWithTag("PlayerStartPosition").GetComponent<Transform>();        
         player.transform.position = playerStartPos.position;
-        player.GetComponent<Player>().SetSound(player.GetComponent<Player>().chompFx);
-
+        player.GetComponent<Player>().SetMovement(Vector2.zero);
+        player.GetComponent<Player>().SetSound(player.GetComponent<Player>().chompFx);        
+        
         //obtem o objeto de todosos inimigos da cena
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Ghost");
 

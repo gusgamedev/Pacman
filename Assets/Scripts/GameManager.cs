@@ -10,8 +10,7 @@ public class GameManager : MonoBehaviour
     public int cherries = 0;
     public int score = 0;
 
-    //iniciado com 4 pois temos sempre 4 powerups por fase;
-    private int numberPills = 4;
+    private int numberPills = 0;
    
     private void Awake()
     {
@@ -24,13 +23,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        //obtem o numero total de Pills para podermos identificar quantas 
-        //o jogador precisa coletar para finalizar a fase
-        GetTotalPills();        
-    }
-
     public void SetScore(int pScore)
     {
         //incrementa a pontuacao a cada item coletado ou inimigo destruido
@@ -39,11 +31,17 @@ public class GameManager : MonoBehaviour
         //quando o jogador alcacar as pontuacaoes de 10k, 15k e 20k ele ganha uma vida
         if (score == 10000 || score == 15000 || score == 20000)
             lifes++;
+
+        if (score > PlayerPrefs.GetInt("hi-score"))
+            PlayerPrefs.SetInt("hi-score", score);
     }
 
     public void GetTotalPills()
     {
-        numberPills += GameObject.FindGameObjectsWithTag("Points").Length;
+        //obtem o numero total de Pills para podermos identificar quantas 
+        //o jogador precisa coletar para finalizar a fase
+        numberPills =  GameObject.FindGameObjectsWithTag("Points").Length;
+        numberPills += GameObject.FindGameObjectsWithTag("PowerUp").Length;
     }
 
     public void DecreasePills()
@@ -57,10 +55,11 @@ public class GameManager : MonoBehaviour
     }
 
     public void StartGame()
-    {        
-        SceneManager.LoadScene("Level01");
+    {
+        SceneManager.LoadScene("MainMenu");        
         cherries = 0;
         lifes = 3;
+        score = 0;        
     }
 
     public void GameOver()
